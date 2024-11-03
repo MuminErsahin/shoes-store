@@ -14,6 +14,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.Arrays;
 
 
 @Configuration
@@ -28,26 +29,10 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-
-        // Spesifik origin'leri ekle
-        configuration.addAllowedOrigin("https://shoes-store-frontend-iota.vercel.app");
-        configuration.addAllowedOrigin("http://localhost:5173");
-
-        // Tüm HTTP metodlarına izin ver
-        configuration.addAllowedMethod("GET");
-        configuration.addAllowedMethod("POST");
-        configuration.addAllowedMethod("PUT");
-        configuration.addAllowedMethod("DELETE");
-        configuration.addAllowedMethod("OPTIONS");
-
-        // Header'ları ayarla
-        configuration.addAllowedHeader("Authorization");
-        configuration.addAllowedHeader("Content-Type");
-        configuration.addAllowedHeader("Accept");
-        configuration.addAllowedHeader("Origin");
-
-        configuration.setAllowCredentials(true);
-        configuration.setMaxAge(3600L);
+        configuration.setAllowedOrigins(Arrays.asList("*")); // Tüm origin'lere izin ver
+        configuration.setAllowedMethods(Arrays.asList("*")); // Tüm metodlara izin ver
+        configuration.setAllowedHeaders(Arrays.asList("*")); // Tüm header'lara izin ver
+        configuration.setAllowCredentials(false); // '*' kullanırken false olmalı
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
