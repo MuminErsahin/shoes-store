@@ -5,6 +5,6 @@ RUN chmod +x mvnw
 RUN ./mvnw clean package -DskipTests
 
 FROM openjdk:17-slim
-COPY --from=build /app/target/shoes-store.jar app.jar
+COPY --from=build /app/target/shoes-store.jar shoes-store.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "shoes-store.jar"]
