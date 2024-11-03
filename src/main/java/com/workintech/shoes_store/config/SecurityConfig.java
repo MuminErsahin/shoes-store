@@ -29,15 +29,25 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        // Tüm origin'lere izin ver (geçici çözüm için)
-        configuration.addAllowedOrigin("*");
-        // Ya da spesifik origin'ler için:
-        // configuration.addAllowedOrigin("https://shoes-store-frontend-iota.vercel.app");
-        // configuration.addAllowedOrigin("http://localhost:5173");
+        // Spesifik origin'leri ekle
+        configuration.addAllowedOrigin("https://shoes-store-frontend-iota.vercel.app");
+        configuration.addAllowedOrigin("http://localhost:5173");
 
-        configuration.addAllowedMethod("*");
-        configuration.addAllowedHeader("*");
-        configuration.setAllowCredentials(false); // '*' kullanıyorsak false olmalı
+        // Tüm HTTP metodlarına izin ver
+        configuration.addAllowedMethod("GET");
+        configuration.addAllowedMethod("POST");
+        configuration.addAllowedMethod("PUT");
+        configuration.addAllowedMethod("DELETE");
+        configuration.addAllowedMethod("OPTIONS");
+
+        // Header'ları ayarla
+        configuration.addAllowedHeader("Authorization");
+        configuration.addAllowedHeader("Content-Type");
+        configuration.addAllowedHeader("Accept");
+        configuration.addAllowedHeader("Origin");
+
+        configuration.setAllowCredentials(true);
+        configuration.setMaxAge(3600L);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

@@ -20,7 +20,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@CrossOrigin
+@CrossOrigin(
+        origins = {"https://shoes-store-frontend-iota.vercel.app", "http://localhost:5173"},
+        allowedHeaders = "*",
+        methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS}
+)
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthController {
