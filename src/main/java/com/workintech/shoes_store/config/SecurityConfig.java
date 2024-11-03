@@ -21,7 +21,7 @@ import java.util.List;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Value("${ALLOWED_ORIGINS:http://localhost:5173}")
+    @Value("${ALLOWED_ORIGINS:http://localhost:5173,https://shoes-store-frontend-iota.vercel.app}")
     private String allowedOrigins;
 
     @Bean
@@ -40,9 +40,15 @@ public class SecurityConfig {
         configuration.setAllowedMethods(Arrays.asList(
                 "GET", "POST", "PUT", "DELETE", "OPTIONS"
         ));
-        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setAllowedHeaders(Arrays.asList(
+                "Authorization",
+                "Content-Type",
+                "Accept",
+                "Origin",
+                "X-Requested-With"
+        ));
         configuration.setAllowCredentials(true);
-        configuration.setMaxAge(3600L); // 1 saat önbellekleme
+        configuration.setMaxAge(3600L);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
